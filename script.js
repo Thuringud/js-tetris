@@ -1,5 +1,5 @@
 import { Tetris } from "./tetris.js";
-import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, convertPositionToIndex } from "./utilities.js";
+import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, convertPositionToIndex, SAD } from "./utilities.js";
 
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
@@ -182,6 +182,28 @@ function drawGhostTetromino() {
 function gameOver() {
 	stopLoop();
 	document.removeEventListener('keydown', onKeyDown);
-	hammer.off('panstart panleft panright pandown swipedown tap')
+	hammer.off('panstart panleft panright pandown swipedown tap');
+	gameOverAnimation();
 }
  
+function gameOverAnimation() {
+	const filledCells = [...cells].filter(cell => cell.classList.length > 0);
+	filledCells.forEach((cell, index) => {
+		setTimeout(() => cell.classList.add('hide'), index * 10);
+		setTimeout(() => cell.removeAttribute('class'), index * 10 + 500);
+	});
+
+	setTimeout(drawSadSmile, filledCells.length * 10 + 1000);
+}
+
+function drawSadSmile() {
+	const TOP_OFFSET = 5;
+	
+	for(let row = 0; row < SAD.length; row++) {
+		for(let column = 0; column < SAD[0].length; column++) {
+			if (!SAD[row][column]) continue;
+      const cellIndex = convertPositionToIndex(TOP_OFFSET + row, column);
+      cells[cellIndex].classList.add('sad');
+		}
+	}
+}
