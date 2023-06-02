@@ -28,6 +28,9 @@ function onKeyDown(event) {
 		case 'ArrowRight':
 			moveRight();
 			break;
+		case ' ':
+			dropDown();
+			break;
 		default:
 			break;
 	}
@@ -57,6 +60,17 @@ function moveRight() {
 function rotate() {
 	tetris.rotateTetromino();
 	draw();
+}
+
+function dropDown() {
+	tetris.dropTetrominoDown();
+	draw();
+	stopLoop();
+	startLoop();
+
+	if(tetris.isGameOver) {
+		gameOver();
+	}	
 }
 
 function startLoop() {
