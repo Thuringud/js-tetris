@@ -4,9 +4,10 @@ import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, convertPositionToIndex } from "./uti
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 
- let requestID, timeoutID;
+ let requestID, timeoutID, hammer;
 
 initKeyDown();
+initTouch();
 
 moveDown();
 
@@ -34,6 +35,57 @@ function onKeyDown(event) {
 		default:
 			break;
 	}
+}
+
+function initTouch() {
+	document.addEventListener('dblclick', (event) => {
+		event.preventDefault();
+	});
+
+	hammer = new Hammer(document.querySelector('body'));
+	hammer.get('pan').set({direction: Hammer.DIRECTION_ALL});
+	hammer.get('swipe').set({direction: Hammer.DIRECTION_ALL});
+
+	const threshold = 30;
+	let deltaX = 0;
+	let deltaY = 0;
+
+	hammer.on('panstart', () => {
+		deltaX = 0;
+		deltaY = 0;
+	});
+
+	hammer.on('panleft', (event) => {
+		if(Math.abs(event.deltaX - deltaX) > threshold) {
+			moveLeft();
+			deltaX = event.deltaX;
+			deltaY = event.deltaY;
+		}
+	});
+
+	hammer.on('panright', (event) => {
+		if(Math.abs(event.deltaX - deltaX) > threshold) {
+			moveRight();
+			deltaX = event.deltaX;
+			deltaY = event.deltaY;
+		}
+	});
+
+	hammer.on('pandown', (event) => {
+		if(Math.abs(event.deltaY - deltaY) > threshold) {
+			moveDown();
+			deltaX = event.deltaX;
+			deltaY = event.deltaY;
+		}
+	});
+
+	hammer.on('swipedown', () => {
+		dropDown();
+	});
+
+	hammer.on('tap', () => {
+		rotate();
+	});
 }
 
 function moveDown() {
@@ -130,5 +182,6 @@ function drawGhostTetromino() {
 function gameOver() {
 	stopLoop();
 	document.removeEventListener('keydown', onKeyDown);
+	hammer.off('panstart panleft panright pandown swipedown tap')
 }
  
