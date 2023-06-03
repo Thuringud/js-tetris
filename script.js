@@ -4,7 +4,7 @@ import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, convertPositionToIndex, SAD } from "
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 
- let requestID, timeoutID, hammer;
+let requestID, timeoutID, hammer;
 
 initKeyDown();
 initTouch();

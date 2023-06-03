@@ -11,7 +11,8 @@ body {
 	align-items: center;
 	height: 100vh;
 	height: 100svh;
-	background: linear-gradient(90deg, #395492, #0099c0, #3dd5a8);
+	background-image: url(/images/ai-tetris-bg.jpg);
+	background-size: contain;
 	font-family: Arial, Helvetica, sans-serif;
 	user-select: none;
 }
@@ -23,7 +24,8 @@ body {
 	padding: 0.6vh;
 	gap: 0.3vh;
 	border-radius: 0.6vh;
-	background: rgba(1, 8, 89, 0.5);
+	background: rgb(34 36 53);
+	box-shadow: 5px 4px 7px #1c1c1c;
 }
 
 .grid>div {
