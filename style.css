@@ -11,7 +11,7 @@ body {
 	align-items: center;
 	height: 100vh;
 	height: 100svh;
-	background-image: url(/images/ai-tetris-bg.jpg);
+	background-image: url(images/ai-tetris-bg.jpg);
 	background-size: contain;
 	font-family: Arial, Helvetica, sans-serif;
 	user-select: none;
