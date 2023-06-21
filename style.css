@@ -9,6 +9,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-wrap: wrap;
 	height: 100vh;
 	height: 100svh;
 	background-image: url(images/ai-tetris-bg.jpg);
@@ -23,7 +24,7 @@ body {
 	grid-template-rows: repeat(20, auto);
 	padding: 0.6vh;
 	gap: 0.3vh;
-	border-radius: 0.6vh;
+	border-radius: 0.6vh 0 0 0.6vh;
 	background: rgb(34 36 53);
 	box-shadow: 5px 4px 7px #1c1c1c;
 }
@@ -31,7 +32,7 @@ body {
 .grid>div {
 	--cell-size: min(4.5vh, 7.5vw);
 	height: var(--cell-size);
-	width: var(--cell-size);
+	aspect-ratio: 1;
 	border-radius: 0.3vh;
 	background-color: rgba(126, 150, 221, 0.2);
 
@@ -103,4 +104,24 @@ body {
 	90% {
 		transform: scale(1) rotate(0);
 	}
+}
+
+.score {
+	position: relative;
+	padding: 1vh;
+	border-radius: 0 0.6vh 0.6vh 0;
+	border: 0.6vh solid #222435;
+	left: 1.6vh;
+	background: rgb(52 59 87);
+	/* display: flex; */
+	flex-direction: column;
+	color: #ffffff;
+	min-width: 150px;
+	box-shadow: 5px 4px 7px #1c1c1c;
+}
+
+.score>div {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 5px;
 }

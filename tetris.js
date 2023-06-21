@@ -12,6 +12,8 @@ export class Tetris {
 		this.playField;
 		this.tetromino;
 		this.isGameOver = false;
+		this.gameScore = 0;
+		this.filledLinesCount = 0;
 		this.init(); 
 	}
 
@@ -136,7 +138,37 @@ export class Tetris {
 
 	processFilledRows() {
 		const filledLines = this.findFilledRows();
+		this.countGameScore(filledLines.length);
+		this.filledLinesCount += filledLines.length;
+		this.setGameScore();
+		this.updateGameScores();
 		this.removeFilledRows(filledLines);
+	}
+
+	countGameScore(filledLines) {
+		/*
+		1 линия — 100 очков,
+		2 линии — 300 очков,
+		3 линии — 700 очков,
+		4 линии — 1500 очков (Тетрис)
+		*/
+
+		switch (filledLines) {
+			case 1:
+				this.gameScore += 100;
+				break;
+			case 2:
+				this.gameScore += 300;
+				break;
+			case 3:
+				this.gameScore += 700;
+				break;
+			case 4:
+				this.gameScore += 1500;
+				break;
+			default:
+				break;
+		}
 	}
 
 	findFilledRows() {
@@ -174,5 +206,33 @@ export class Tetris {
 		this.tetromino.ghostRow = this.tetromino.row - 1;
 		this.tetromino.ghostColumn = this.tetromino.column;
 		this.tetromino.row = tetrominoRow;
+	}
+
+	setGameScore() {
+	let recordScore = localStorage.getItem('recordScore');
+	let currentScore = this.gameScore;
+	if(recordScore) {
+		currentScore > recordScore
+		? localStorage.setItem('recordScore', currentScore)
+		: localStorage.setItem('recordScore', recordScore);
+	} else {
+		localStorage.setItem('recordScore', currentScore);
+	}
+}
+
+	updateGameScores() {
+		let currentScore = this.gameScore || 0;
+		let recordScore = localStorage.getItem('recordScore') || 0;
+		let filledLines = this.filledLinesCount;
+
+		if(currentScore > recordScore) {
+			document.getElementById('currentScore').textContent = currentScore;
+			document.getElementById('recordScore').textContent = currentScore;
+			document.getElementById('currentLines').textContent = filledLines;
+		} else {
+			document.getElementById('currentScore').textContent = currentScore;
+			document.getElementById('recordScore').textContent = recordScore;
+			document.getElementById('currentLines').textContent = filledLines;
+		}
 	}
 }

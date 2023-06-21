@@ -11,6 +11,8 @@ initTouch();
 
 moveDown();
 
+tetris.updateGameScores();
+
 function initKeyDown() {
 	document.addEventListener('keydown', onKeyDown); 
 }
