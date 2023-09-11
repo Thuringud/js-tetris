@@ -125,3 +125,27 @@ body {
 	justify-content: space-between;
 	padding-bottom: 5px;
 }
+
+@media screen and (max-width: 700px) {
+	.grid {
+		position: absolute;
+		top: 1rem;
+	}
+
+	.score {
+		mix-blend-mode: difference;
+		width: 220px;
+		position: absolute;
+		top: 1.5rem;
+		padding: 0;
+		border-radius: 0;
+		border: none;
+		left: auto;
+		background:no-repeat;
+		flex-direction: column;
+		color: #ffffff;
+		font-size: 25px;
+		min-width: 150px;
+		box-shadow: none;
+	}
+}
